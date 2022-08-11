@@ -6,13 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.timeforsum.R
+import com.example.timeforsum.databinding.GameOfEndFragmentBinding
 
 class EndOfGameFragment : Fragment() {
+    private var _binding: GameOfEndFragmentBinding? = null
+
+    private val binding: GameOfEndFragmentBinding
+        get() = _binding ?: throw RuntimeException("GameOfEndFragmentBinding == null")
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.game_of_end_fragment, container, false)
+    ): View {
+        _binding = GameOfEndFragmentBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
