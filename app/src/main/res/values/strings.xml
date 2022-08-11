@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">Time For Sum</string>
+    <string name="start">Start</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="test">Test</string>
+    <string name="choose_your_level">Choose Your Level</string>
+    <string name="tvAnswer1">1</string>
+    <string name="tvAnswer2">2</string>
+    <string name="tvAnswer3">3</string>
+    <string name="tvAnswer4">4</string>
+    <string name="tvAnswer5">5</string>
+    <string name="tvAnswer6">6</string>
+    <string name="default_time">00:00</string>
+    <string name="question"><a>?</a></string>
+    <string name="answer_progress">Right answers % (min %)</string>
 </resources>
