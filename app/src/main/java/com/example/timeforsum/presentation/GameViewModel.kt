@@ -1,11 +1,13 @@
 package com.example.timeforsum.presentation
 
 import android.app.Application
+import android.content.Context
 import android.os.CountDownTimer
 
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.timeforsum.R
 import com.example.timeforsum.data.GameRepositoryImpl
 import com.example.timeforsum.domain.entity.GameResult
@@ -15,10 +17,9 @@ import com.example.timeforsum.domain.entity.Question
 import com.example.timeforsum.domain.usecases.GenerateQuestionUseCase
 import com.example.timeforsum.domain.usecases.GetGameSettingsUseCase
 
-class GameViewModel(application: Application) : AndroidViewModel(application) {
+class GameViewModel(private val application: Application, private val level: Level) : ViewModel() {
     private var timer: CountDownTimer? = null
     private lateinit var gameSettings: GameSettings
-    private lateinit var level: Level
     private var correctAnswers = 0
     private var countQuestions = 0
 
@@ -57,12 +58,13 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private val repository = GameRepositoryImpl
     private val generateQuestionUseCase = GenerateQuestionUseCase(repository)
     private val getGameSettingsUseCase = GetGameSettingsUseCase(repository)
-    private val context = application
 
+    init {
+        startGame()
+    }
 
-
-    fun startGame(level: Level){
-        getGameSetting(level)
+    private fun startGame(){
+        getGameSetting()
         startTimer()
         generateQuestion()
         updateProgress()
@@ -81,7 +83,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
     private fun updateProgress(){
         val percent = calculatePercentOfRightAnswers()
         _percentOfRightAnswers.value = percent
-        _progressAnswers.value = String.format(context.resources.getString(R.string.answer_progress), correctAnswers, gameSettings.minCountOfRightAnswers)
+        _progressAnswers.value = String.format(application.resources.getString(R.string.answer_progress), correctAnswers, gameSettings.minCountOfRightAnswers)
         _enoughOfRightAnswers.value = correctAnswers >= gameSettings.minCountOfRightAnswers
         _enoughOfPercentAnswers.value = percent >= gameSettings.minPercentOfRightAnswers
     }
@@ -91,8 +93,7 @@ class GameViewModel(application: Application) : AndroidViewModel(application) {
         return ((correctAnswers.toDouble() / countQuestions.toDouble()) * 100).toInt()
     }
 
-    private fun getGameSetting(level: Level){
-        this.level = level
+    private fun getGameSetting(){
         this.gameSettings = getGameSettingsUseCase(level)
         _minPercent.value = gameSettings.minPercentOfRightAnswers
     }
