@@ -1,5 +1,9 @@
 package com.example.timeforsum.domain.entity
 
-enum class Level {
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
+enum class Level : Parcelable{
     EASY, MEDIUM, HARD, TEST
 }
