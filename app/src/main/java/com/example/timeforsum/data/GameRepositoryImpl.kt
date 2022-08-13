@@ -4,11 +4,13 @@ import com.example.timeforsum.domain.entity.GameSettings
 import com.example.timeforsum.domain.entity.Level
 import com.example.timeforsum.domain.entity.Question
 import com.example.timeforsum.domain.repository.GameRepository
+import java.lang.Integer.max
+import java.lang.Integer.min
 import kotlin.random.Random
 
 object GameRepositoryImpl: GameRepository {
-    private const val MIN_SUM_VALUE = 1
-    private const val MIN_VISIBLE_VALUE = 0
+    private const val MIN_SUM_VALUE = 2
+    private const val MIN_VISIBLE_VALUE = 1
 
     override fun generateQuestion(sumValue: Int, countOfQuestion: Int): Question {
         val sum = Random.nextInt(MIN_SUM_VALUE, sumValue + 1)
@@ -16,7 +18,9 @@ object GameRepositoryImpl: GameRepository {
         val answers = HashSet<Int>()
         val rightAnswer = sum - visibleNumber
         answers.add(rightAnswer)
-        while (answers.size < countOfQuestion) answers.add(Random.nextInt(MIN_VISIBLE_VALUE, sum*2))
+        val from = max(rightAnswer - countOfQuestion, MIN_SUM_VALUE)
+        val to = min(sumValue, rightAnswer + countOfQuestion)
+        while (answers.size < countOfQuestion) answers.add(Random.nextInt(from, to))
         return Question(sum, visibleNumber, answers.toList())
     }
 

@@ -16,7 +16,7 @@
         app:layout_constraintBottom_toTopOf="@+id/tvAnswer4"
         app:layout_constraintEnd_toStartOf="@+id/tvAnswer2"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/tvAnswer4" />
 
     <TextView
         android:id="@+id/tvAnswer2"
@@ -38,7 +38,7 @@
         android:background="#009688"
         android:text="@string/tvAnswer3"
         app:layout_constraintBottom_toTopOf="@+id/tvAnswer6"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/tvAnswer6"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/tvAnswer2" />
 
@@ -47,6 +47,7 @@
         style="@style/AnswerTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:background="#FF5722"
         android:text="@string/tvAnswer4"
         app:layout_constraintBottom_toBottomOf="@+id/tvAnswer5"
@@ -59,6 +60,7 @@
         style="@style/AnswerTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:background="#9C27B0"
         android:text="@string/tvAnswer5"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -70,9 +72,10 @@
         style="@style/AnswerTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
         android:background="#3F51B5"
         android:text="@string/tvAnswer6"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvAnswer5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toEndOf="@+id/tvAnswer5" />
@@ -81,7 +84,7 @@
         android:id="@+id/tvTimer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:gravity="center"
         android:text="@string/default_time"
         android:textColor="#100000"
@@ -94,7 +97,7 @@
         android:id="@+id/tvSum"
         android:layout_width="150sp"
         android:layout_height="150sp"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@drawable/oval"
         android:backgroundTint="#2196F3"
         android:gravity="center"
@@ -154,13 +157,11 @@
         android:id="@+id/tvAnswerProgress"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="@string/answer_progress"
-        android:textColor="#000000"
+        android:textColor="#FF0909"
         android:textSize="16sp"
         app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toBottomOf="@+id/tvVisibleNumber"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintStart_toStartOf="@+id/progressBar" />
 </androidx.constraintlayout.widget.ConstraintLayout>
