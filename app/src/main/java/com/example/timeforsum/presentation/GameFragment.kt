@@ -22,9 +22,11 @@ class GameFragment : Fragment() {
     private val binding: GameFragmentBinding
         get() = _binding ?: throw RuntimeException("GameFragmentBinding == null")
 
+    private val viewModelFactory by lazy {
+        GameViewModelFactory(level, requireActivity().application)
+    }
     private val viewModel: GameViewModel by lazy {
-        ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory
-            .getInstance(requireActivity().application))[GameViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[GameViewModel::class.java]
     }
 
     private val tvAnswers by lazy {
@@ -51,7 +53,6 @@ class GameFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModelObserver()
         setClickListenersToAnswers()
-        viewModel.startGame(level)
     }
 
     private fun viewModelObserver() = with(binding){

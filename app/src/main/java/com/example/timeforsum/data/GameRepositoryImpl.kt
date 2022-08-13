@@ -29,7 +29,7 @@ object GameRepositoryImpl: GameRepository {
             Level.EASY -> GameSettings(120, 20, 10, 50)
             Level.MEDIUM -> GameSettings(90, 100, 15, 65)
             Level.HARD -> GameSettings(60, 200, 20, 80)
-            Level.TEST -> GameSettings(15, 10, 2, 10)
+            Level.TEST -> GameSettings(15, 30, 2, 10)
         }
     }
 }
