@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.timeforsum.R
 import com.example.timeforsum.databinding.StartScreenFragmentBinding
 
@@ -31,11 +32,7 @@ class StartScreenFragment: Fragment() {
     }
 
     private fun launchChooseLevelFragment(){
-        requireActivity().supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.main_container, ChooseLevelFragment.newInstance())
-            .addToBackStack(ChooseLevelFragment.NAME)
-            .commit()
+        findNavController().navigate(R.id.action_startScreenFragment3_to_chooseLevelFragment2)
     }
 
     override fun onDestroyView() {

@@ -8,17 +8,19 @@ import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.timeforsum.R
 import com.example.timeforsum.databinding.GameOfEndFragmentBinding
 import com.example.timeforsum.domain.entity.GameResult
 
 class EndOfGameFragment : Fragment() {
-    private lateinit var gameResult: GameResult
     private var _binding: GameOfEndFragmentBinding? = null
 
     private val binding: GameOfEndFragmentBinding
         get() = _binding ?: throw RuntimeException("GameOfEndFragmentBinding == null")
 
+    private val args by navArgs<EndOfGameFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +33,7 @@ class EndOfGameFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
-            override fun handleOnBackPressed() {
-                closeGame()
-            }
-        })
+
 
         binding.btnClose.setOnClickListener {
             closeGame()
@@ -45,8 +43,6 @@ class EndOfGameFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        parseArgs()
-        Log.d("gameResult", gameResult.toString())
     }
 
     override fun onDestroyView() {
@@ -54,13 +50,9 @@ class EndOfGameFragment : Fragment() {
         _binding = null
     }
 
-    private fun parseArgs(){
-        requireArguments().getParcelable<GameResult>(KEY_GAME_RESULT)?.let {
-            gameResult = it
-        }
-    }
 
     private fun setResult() = with(binding){
+        val gameResult = args.gameResult
         if(gameResult.win) {
             imgResult.setImageResource(R.drawable.ic_baseline_done_24)
         }
@@ -74,25 +66,13 @@ class EndOfGameFragment : Fragment() {
     }
 
     private fun closeGame(){
-        requireActivity().supportFragmentManager.popBackStack(GameFragment.NAME, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        findNavController().popBackStack()
     }
 
     private fun getPercentRightAnswers(): Int{
-        with(gameResult){
+        with(args.gameResult){
             if(countOfQuestion == 0) return 0
             return ((countOfRightAnswers.toDouble() / countOfQuestion) * 100).toInt()
-        }
-    }
-
-    companion object{
-        private const val KEY_GAME_RESULT = "game_result"
-
-        fun newInstance(gameResult: GameResult): EndOfGameFragment{
-            return EndOfGameFragment().apply {
-                arguments = Bundle().apply {
-                    putParcelable(KEY_GAME_RESULT, gameResult)
-                }
-            }
         }
     }
 }
