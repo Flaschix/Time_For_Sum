@@ -38,7 +38,7 @@ class EndOfGameFragment : Fragment() {
         binding.btnClose.setOnClickListener {
             closeGame()
         }
-        setResult()
+        binding.gameResult = args.gameResult
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,29 +50,7 @@ class EndOfGameFragment : Fragment() {
         _binding = null
     }
 
-
-    private fun setResult() = with(binding){
-        val gameResult = args.gameResult
-        if(gameResult.win) {
-            imgResult.setImageResource(R.drawable.ic_baseline_done_24)
-        }
-        else {
-            imgResult.setImageResource(R.drawable.ic_baseline_close_24)
-        }
-        tvMinCountRightAnswers.text = String.format(getString(R.string.need_answer_count), gameResult.gameSettings.minCountOfRightAnswers)
-        tvMinPercent.text = String.format(getString(R.string.need_answer_progress), gameResult.gameSettings.minPercentOfRightAnswers)
-        tvPlayerCountRightAnswers.text = String.format(getString(R.string.your_answer_count), gameResult.countOfRightAnswers)
-        tvPlayerPercent.text = String.format(getString(R.string.your_answer_percent), getPercentRightAnswers())
-    }
-
     private fun closeGame(){
         findNavController().popBackStack()
-    }
-
-    private fun getPercentRightAnswers(): Int{
-        with(args.gameResult){
-            if(countOfQuestion == 0) return 0
-            return ((countOfRightAnswers.toDouble() / countOfQuestion) * 100).toInt()
-        }
     }
 }

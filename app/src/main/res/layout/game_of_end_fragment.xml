@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="gameResult"
+            type="com.example.timeforsum.domain.entity.GameResult" />
+    </data>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -27,6 +34,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        app:imgResult="@{gameResult.win}"
         app:layout_constraintBottom_toTopOf="@+id/tvMinCountRightAnswers"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:text="@string/need_answer_count"
+        app:tvMinCountRightAnswers="@{gameResult.gameSettings.minCountOfRightAnswers}"
         app:layout_constraintBottom_toTopOf="@+id/btnClose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,7 +60,7 @@
         style="@style/ResultTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/need_answer_progress"
+        app:tvMinPercent="@{gameResult.gameSettings.minPercentOfRightAnswers}"
         app:layout_constraintEnd_toEndOf="@+id/tvMinCountRightAnswers"
         app:layout_constraintStart_toStartOf="@+id/tvMinCountRightAnswers"
         app:layout_constraintTop_toBottomOf="@+id/tvMinCountRightAnswers" />
@@ -62,7 +70,7 @@
         style="@style/ResultTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/your_answer_count"
+        app:tvPlayerCountRightAnswers="@{gameResult.countOfRightAnswers}"
         app:layout_constraintEnd_toEndOf="@+id/tvMinPercent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/tvMinPercent"
@@ -73,9 +81,10 @@
         style="@style/ResultTextStyle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/your_answer_percent"
+        app:tvPlayerPercent="@{gameResult}"
         app:layout_constraintEnd_toEndOf="@+id/tvPlayerCountRightAnswers"
         app:layout_constraintHorizontal_bias="0.467"
         app:layout_constraintStart_toStartOf="@+id/tvPlayerCountRightAnswers"
         app:layout_constraintTop_toBottomOf="@+id/tvPlayerCountRightAnswers" />
 </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
